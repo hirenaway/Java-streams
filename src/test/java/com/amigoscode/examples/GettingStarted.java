@@ -17,10 +17,29 @@ public class GettingStarted {
         // 1. Find people aged less or equal 18
         // 2. Then change implementation to find first 10 people
         List<Person> people = MockData.getPeople();
+        List<Person> youngGroup = new ArrayList<>();
+
+        int count = 0;
+        int limit = 10;
+
+        for (Person person : people){
+            if(person.getAge() <= 18){
+                youngGroup.add(person);
+                count++;
+                if(count == limit){
+                    break;
+                }
+            }
+        }
+        System.out.println(youngGroup);
     }
 
     @Test
     public void declarativeApproachUsingStreams() throws Exception {
-        List<Person> people = MockData.getPeople();
+        System.out.println(MockData.getPeople()
+                .stream()
+                .filter(person -> person.getAge() <= 18)
+                .limit(10)
+                .collect(Collectors.toList()));
     }
 }
